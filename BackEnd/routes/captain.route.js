@@ -16,32 +16,36 @@ router.post(
     body("email").isEmail().withMessage("Invalid Email Entered"),
 
     body("fullname.firstname")
-      .isLength({ min: 3 })
-      .withMessage("First Name must be at least 3 characters"),
+      .isLength({ min: 2 })
+      .withMessage("First Name must be at least 2 characters"),
 
     body("password")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters long"),
 
-    body("vehical.vehicalBrand")
+    body("vehicle.vehicleBrand")
       .isLength({ min: 2 })
-      .withMessage("Vehical Name must be at least 2 characters"),
+      .withMessage("Vehicle Name must be at least 2 characters"),
 
-    body("vehical.vehicalColor")
-      .isLength({ min: 3 })
-      .withMessage("Vehical Color must be at least 3 characters"),
+    body("vehicle.vehicleColor")
+      .isLength({ min: 2 })
+      .withMessage("Vehicle Color must be at least 2 characters"),
 
-    body("vehical.plateNumber")
-      .isLength({ min: 9 })
-      .withMessage("Vehical Number must be at least 9 characters"),
+    body("vehicle.vehicleModel")
+      .isLength({ min: 2 })
+      .withMessage("Vehicle Model must be at least 2 characters"),
 
-    body("vehical.vehicalType")
+    body("vehicle.vehicleNumber")
+      .isLength({ min: 8 })
+      .withMessage("Vehicle Number must be at least 8 characters"),
+
+    body("vehicle.vehicleType")
       .isIn(["car", "auto", "bike"])
-      .withMessage("Invalid Vehical Type"),
+      .withMessage("Invalid Vehicle Type"),
 
-    body("vehical.capacity")
+    body("vehicle.vehicleCapacity")
       .isInt({ min: 1 })
-      .withMessage("Vehical Capacity must be at least 1"),
+      .withMessage("Vehicle Capacity must be at least 1"),
   ],
   registerCaptain
 );

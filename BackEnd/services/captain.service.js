@@ -7,25 +7,23 @@ const captainService = {
     lastname,
     email,
     password,
-    vehicalColor,
-    vehicalBrand,
-    vehicalModel,
-    plateNumber,
-    capacity,
-    vehicalType,
+    vehicleColor,
+    vehicleBrand,
+    vehicleModel,
+    vehicleNumber,
+    vehicleCapacity,
+    vehicleType,
   }) => {
     if (
       !firstname ||
-      !middlename ||
-      !lastname ||
       !email ||
       !password ||
-      !vehicalColor ||
-      !vehicalBrand ||
-      !vehicalModel ||
-      !plateNumber ||
-      !capacity ||
-      !vehicalType
+      !vehicleColor ||
+      !vehicleBrand ||
+      !vehicleModel ||
+      !vehicleNumber ||
+      !vehicleCapacity ||
+      !vehicleType
     ) {
       throw new Error("All fields Are Required To Enter");
     }
@@ -38,16 +36,15 @@ const captainService = {
       },
       email,
       password,
-      vehicalDetails: {
-        color: vehicalColor,
-        brand: vehicalBrand,
-        model: vehicalModel,
-        plateNumber,
-        capacity,
-        type: vehicalType,
+      vehicle: {
+        vehicleBrand,
+        vehicleModel,
+        vehicleColor,
+        vehicleNumber,
+        vehicleCapacity,
+        vehicleType,
       },
     });
-
     return captain;
   },
 };

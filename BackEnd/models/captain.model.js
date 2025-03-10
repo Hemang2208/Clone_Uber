@@ -45,33 +45,33 @@ const captainSchema = new mongoose.Schema({
     enum: ["active", "inactive"],
     default: "inactive",
   },
-  vehical: {
-    vehicalBrand: {
+  vehicle: {
+    vehicleBrand: {
       type: String,
       required: true,
       minlength: [2, "Brand must be at least 2 characters long"],
     },
-    vehicalModel: {
+    vehicleModel: {
       type: String,
       required: true,
       minlength: [2, "Model must be at least 2 characters long"],
     },
-    vehicalColor: {
+    vehicleColor: {
       type: String,
       required: true,
       minlength: [2, "Color must be at least 2 characters long"],
     },
-    plateNumber: {
+    vehicleNumber: {
       type: String,
       required: true,
       minlength: [8, "Plate Number must be at least 8 characters long"],
     },
-    capacity: {
+    vehicleCapacity: {
       type: Number,
       required: true,
       min: [1, "Capacity must be at least 1"],
     },
-    vehicalType: {
+    vehicleType: {
       type: String,
       required: true,
       enum: ["car", "auto", "bike"],
@@ -80,7 +80,7 @@ const captainSchema = new mongoose.Schema({
   location: {
     type: {
       type: String,
-      enum: ["Rural, Urban"],
+      enum: ["Rural", "Urban"],
       required: false,
     },
     pincode: {
@@ -92,7 +92,7 @@ const captainSchema = new mongoose.Schema({
       type: [Number],
       required: false,
     },
-    lan: {
+    long: {
       type: [Number],
       required: false,
     },

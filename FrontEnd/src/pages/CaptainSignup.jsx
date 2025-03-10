@@ -35,17 +35,15 @@ const CaptainSignup = () => {
         lastname: Lastname,
       },
 
-      vehical: {
-        vehicalColor: VehicleColor,
-        plateNumber: VehiclePlate,
-        capacity: VehicleCapacity,
-        vehicalType: VehicleType,
-        vehicalBrand: VehicleBrand,
-        vehicalModel: VehicleModel,
+      vehicle: {
+        vehicleColor: VehicleColor,
+        vehicleNumber: VehiclePlate,
+        vehicleCapacity: VehicleCapacity,
+        vehicleType: VehicleType,
+        vehicleBrand: VehicleBrand,
+        vehicleModel: VehicleModel,
       },
     };
-
-    console.log(newCaptain);
 
     try {
       const response = await axios.post(
@@ -59,7 +57,7 @@ const CaptainSignup = () => {
       );
 
       console.log(response.status);
-      
+
       if (response.status) {
         const data = response.data;
         setCaptain(data.captain);
@@ -67,20 +65,20 @@ const CaptainSignup = () => {
         navigate("/captain-home");
       }
     } catch (error) {
-      console.error("Error during signup:", error);
+      console.error("Error During Signup:", error);
     }
 
-    setEmail("");
-    setPassword("");
-    setFirstname("");
-    setMiddlename("");
-    setLastname("");
-    setVehicleCapacity("");
-    setVehicleColor("");
-    setVehiclePlate("");
-    setVehicleType("");
-    setVehicleBrand("");
-    setVehicleModel("");
+    // setEmail("");
+    // setPassword("");
+    // setFirstname("");
+    // setMiddlename("");
+    // setLastname("");
+    // setVehicleCapacity("");
+    // setVehicleColor("");
+    // setVehiclePlate("");
+    // setVehicleType("");
+    // setVehicleBrand("");
+    // setVehicleModel("");
   };
 
   return (
@@ -105,7 +103,14 @@ const CaptainSignup = () => {
               required
               value={Firstname}
               onChange={(e) => {
-                setFirstname(e.target.value);
+                setFirstname(
+                  e.target.value
+                    .toUpperCase()
+                    .trim()
+                    .replace(/[^A-Za-z\s]/g, "")
+                    .replace(/\s+/g, " ")
+                    .slice(0, 20)
+                );
               }}
               type="text"
             />
@@ -115,7 +120,14 @@ const CaptainSignup = () => {
                 placeholder="Middle Name"
                 value={Middlename}
                 onChange={(e) => {
-                  setMiddlename(e.target.value);
+                  setMiddlename(
+                    e.target.value
+                      .toUpperCase()
+                      .trim()
+                      .replace(/[^A-Za-z\s]/g, "")
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -124,7 +136,14 @@ const CaptainSignup = () => {
                 placeholder="Last Name"
                 value={Lastname}
                 onChange={(e) => {
-                  setLastname(e.target.value);
+                  setLastname(
+                    e.target.value
+                      .toUpperCase()
+                      .trim()
+                      .replace(/[^A-Za-z\s]/g, "")
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -138,7 +157,13 @@ const CaptainSignup = () => {
             required
             value={Email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(
+                e.target.value
+                  .toLowerCase()
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .slice(0, 50)
+              );
             }}
             type="email"
           />
@@ -150,12 +175,12 @@ const CaptainSignup = () => {
             required
             value={Password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setPassword(e.target.value.trim());
             }}
             type="password"
           />
 
-          <h3 className="text-lg font-semibold mb-1">Vehical Information</h3>
+          <h3 className="text-lg font-semibold mb-1">Vehicle Information</h3>
 
           <div className="flex flex-col">
             <div className="flex gap-3 mb-3">
@@ -165,7 +190,14 @@ const CaptainSignup = () => {
                 required
                 value={VehicleColor}
                 onChange={(e) => {
-                  setVehicleColor(e.target.value);
+                  setVehicleColor(
+                    e.target.value
+                      .toUpperCase()
+                      .trimStart()
+                      .replace(/[^A-Za-z\s]/g, "")
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -175,7 +207,13 @@ const CaptainSignup = () => {
                 required
                 value={VehiclePlate}
                 onChange={(e) => {
-                  setVehiclePlate(e.target.value);
+                  setVehiclePlate(
+                    e.target.value
+                      .toUpperCase()
+                      .trimStart()
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -187,7 +225,13 @@ const CaptainSignup = () => {
                 required
                 value={VehicleBrand}
                 onChange={(e) => {
-                  setVehicleBrand(e.target.value);
+                  setVehicleBrand(
+                    e.target.value
+                      .toUpperCase()
+                      .trimStart()
+                      .replace(/\s+/g, " ")
+                      .slice(0, 30)
+                  );
                 }}
                 type="text"
               />
@@ -197,7 +241,13 @@ const CaptainSignup = () => {
                 required
                 value={VehicleModel}
                 onChange={(e) => {
-                  setVehicleModel(e.target.value);
+                  setVehicleModel(
+                    e.target.value
+                      .toUpperCase()
+                      .trimStart()
+                      .replace(/\s+/g, " ")
+                      .slice(0, 30)
+                  );
                 }}
                 type="text"
               />
@@ -209,7 +259,9 @@ const CaptainSignup = () => {
                 required
                 value={VehicleCapacity}
                 onChange={(e) => {
-                  setVehicleCapacity(e.target.value);
+                  setVehicleCapacity(
+                    e.target.value.trim().replace(/\s+/g, " ").slice(0, 5)
+                  );
                 }}
                 type="number"
               />

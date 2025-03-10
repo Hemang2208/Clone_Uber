@@ -11,11 +11,15 @@ export const registerCaptain = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { fullname, email, password, vehical } = req.body;
+      const { fullname, email, password, vehicle } = req.body;
+
+      if (!fullname || !vehicle) {
+        return res.status(400).json({ message: "Fullname and Vehicle Detailes are required. Kindly Enter" });
+      }
 
       const isCaptainAlreadyExist = await captainModel.findOne({ email });
       if (isCaptainAlreadyExist) {
-        return res.status(400).json({ message: "Captain already exists" });
+        return res.status(400).json({ message: "Captain Already Exists, Kindly Login." });
       }
 
       const hashedPassword = await captainModel.hashPassword(password);
@@ -26,11 +30,11 @@ export const registerCaptain = async (req, res) => {
         lastname: fullname.lastname,
         email,
         password: hashedPassword,
-        color: vehical.vehicalColor,
-        plate: vehical.plateNumber,
-        capacity: vehical.capacity,
-        type: vehical.vehicalType,
-        brand: vehical.vehicalBrand,
+        color: vehicle.vehicleColor,
+        plate: vehicle.vehicleNumber,
+        capacity: vehicle.vehicleCapacity,
+        type: vehicle.vehicleType,
+        brand: vehicle.vehicleBrand,
       });
 
       const token = captain.generateAuthToken();

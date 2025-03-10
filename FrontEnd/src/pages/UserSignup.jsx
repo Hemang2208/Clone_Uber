@@ -19,6 +19,7 @@ const UserSignup = () => {
     const newUser = {
       email: Email,
       password: Password,
+
       fullname: {
         firstname: Firstname,
         middlename: Middlename,
