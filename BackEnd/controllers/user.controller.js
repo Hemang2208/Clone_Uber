@@ -1,4 +1,3 @@
-// Use ES Modules import syntax
 import { validationResult } from "express-validator";
 import userModel from "../models/user.model.js";
 import { userService } from "../services/user.service.js";
@@ -6,7 +5,6 @@ import BlacklistTokenModel from "../models/blacklistToken.model.js";
 
 export const registerUser = async (req, res) => {
   try {
-    // Validate request inputs
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -17,13 +15,11 @@ export const registerUser = async (req, res) => {
 
       const isUserAlreadyExist = await userModel.findOne({ email });
       if (isUserAlreadyExist) {
-        return res.status(400).json({ message: "User already exists" });
+        return res.status(400).json({ message: "User Already Exists" });
       }
 
-      // Hash password using userModel method
       const hashPassword = await userModel.hashPassword(password);
 
-      // Create user using userService
       const user = await userService.createUser({
         firstname: fullname.firstname,
         middlename: fullname.middlename,
@@ -32,11 +28,10 @@ export const registerUser = async (req, res) => {
         password: hashPassword,
       });
 
-      // Generate authentication token
       const token = user.generateAuthToken();
 
       res.status(201).json({
-        message: "User registered successfully",
+        message: "User Registered Successfully",
         token,
         user,
       });
@@ -44,7 +39,9 @@ export const registerUser = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -60,12 +57,12 @@ export const loginUser = async (req, res) => {
 
       const user = await userModel.findOne({ email }).select("+password");
       if (!user) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        return res.status(401).json({ message: "Invalid Email or PassWord" });
       }
 
       const isMatch = await user.comparePassword(password);
       if (!isMatch) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        return res.status(401).json({ message: "Invalid Email or Password" });
       }
 
       const token = user.generateAuthToken();
@@ -75,7 +72,9 @@ export const loginUser = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -87,7 +86,9 @@ export const getUserProfile = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -105,6 +106,8 @@ export const logoutUser = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };

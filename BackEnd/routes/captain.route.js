@@ -1,6 +1,11 @@
 import express from "express";
 import { body } from "express-validator";
-import { registerCaptain, loginCaptain, getCaptainProfile, logoutCaptain } from "../controllers/captain.controller.js";
+import {
+  registerCaptain,
+  loginCaptain,
+  getCaptainProfile,
+  logoutCaptain,
+} from "../controllers/captain.controller.js";
 import authMidddleware from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
@@ -8,7 +13,7 @@ const router = express.Router();
 router.post(
   "/register",
   [
-    body("email").isEmail().withMessage("Invalid email"),
+    body("email").isEmail().withMessage("Invalid Email Entered"),
 
     body("fullname.firstname")
       .isLength({ min: 3 })
@@ -53,7 +58,7 @@ router.post(
   loginCaptain
 );
 
-router.get("/profile", authMidddleware.authCaptain , getCaptainProfile);
+router.get("/profile", authMidddleware.authCaptain, getCaptainProfile);
 
 router.get("/logout", authMidddleware.authCaptain, logoutCaptain);
 

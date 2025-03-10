@@ -27,7 +27,7 @@ const captainService = {
       !capacity ||
       !vehicalType
     ) {
-      throw new Error("All fields are required");
+      throw new Error("All fields Are Required To Enter");
     }
 
     const captain = await Captain.create({

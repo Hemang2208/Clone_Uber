@@ -1,43 +1,40 @@
-// Description: Entry point for the application. Creates an Express app, connects to the database, and defines routes.
+import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
+import connectToDb from "./db/db.js";
+import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.route.js";
+import captainRoutes from "./routes/captain.route.js";
 
-import dotenv from 'dotenv';
-import cors from 'cors';
-import express from 'express';
-import connectToDb from './db/db.js';
-import userRoutes from './routes/user.route.js';
-import cookieParser from 'cookie-parser';
-import captainRoutes from './routes/captain.route.js';
-
-// Load environment variables
+// Load Environment Variables
 dotenv.config();
 
-// Create Express app
+// Create Express App
 const app = express();
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// Connect to the database
+// Database
 connectToDb();
 
 // Root Route
-app.get('/', (req, res) => {
-  res.send('Ayush Bhadkhau GOD!');
+app.get("/", (req, res) => {
+  res.send("Ayush Bhadkhau GOD!");
 });
 
 // Root Route ( Ayush )
-app.get('/health', (req, res) => {
-  res.send('Ayush Health is OKAY');
+app.get("/health", (req, res) => {
+  res.send("Ayush Health is OKAY");
 });
 
 // User Routes
-app.use('/users', userRoutes);
+app.use("/users", userRoutes);
 
 // Captain Routes
-app.use('/captains', captainRoutes);
+app.use("/captains", captainRoutes);
 
-// Export the app for server.js
 export default app;

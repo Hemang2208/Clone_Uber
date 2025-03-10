@@ -9,12 +9,12 @@ const authUser = async (req, res, next) => {
     (req.headers.authorization && req.headers.authorization.split(" ")[1]);
 
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized Access" });
   }
 
   const isBlacklisted = await blacklistTokenModel.findOne({ token: token });
   if (isBlacklisted) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized Access" });
   }
 
   try {
@@ -32,18 +32,18 @@ const authCaptain = async (req, res, next) => {
     req.cookies.token ||
     (req.headers.authorization && req.headers.authorization.split(" ")[1]);
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized Access" });
   }
 
   const isBlacklisted = await blacklistTokenModel.findOne({ token: token });
   if (isBlacklisted) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized Access" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.captain = await captainModel.findById(decoded._id);
-    
+
     next();
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized" });

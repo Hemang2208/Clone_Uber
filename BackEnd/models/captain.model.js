@@ -11,10 +11,12 @@ const captainSchema = new mongoose.Schema({
     },
     middlename: {
       type: String,
+      required: false,
       minlength: [2, "Middle Name must be at least 2 characters long"],
     },
     lastname: {
       type: String,
+      required: false,
       minlength: [2, "Last Name must be at least 2 characters long"],
     },
   },
@@ -39,6 +41,7 @@ const captainSchema = new mongoose.Schema({
   },
   status: {
     type: String,
+    required: false,
     enum: ["active", "inactive"],
     default: "inactive",
   },
@@ -87,27 +90,26 @@ const captainSchema = new mongoose.Schema({
     },
     lan: {
       type: [Number],
+      required: false,
     },
     lan: {
       type: [Number],
+      required: false,
     },
   },
 });
 
-// Generate JWT Token
 captainSchema.methods.generateAuthToken = function () {
-  const token =  jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
   return token;
-}
+};
 
-// Compare Password
 captainSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Hash Password
 captainSchema.statics.hashPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);

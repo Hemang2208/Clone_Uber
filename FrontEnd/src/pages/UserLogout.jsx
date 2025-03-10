@@ -21,7 +21,7 @@ const UserLogout = () => {
       });
   }, [navigate, token]);
 
-  return <div>User Logout</div>;
+  return <div>User Logout Page</div>;
 };
 
 export default UserLogout;

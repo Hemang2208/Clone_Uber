@@ -1,9 +1,7 @@
-// Import modules using ES Modules syntax
 import express from "express";
 import { body } from "express-validator";
 import authMidddleware from "../middlewares/auth.middleware.js";
 
-// Import controller functions
 import {
   registerUser,
   loginUser,
@@ -13,11 +11,10 @@ import {
 
 const router = express.Router();
 
-// Register route with input validation
 router.post(
   "/register",
   [
-    body("email").isEmail().withMessage("Invalid email"),
+    body("email").isEmail().withMessage("Invalid Email Entered"),
 
     body("fullname.firstname")
       .isLength({ min: 3 })
@@ -33,7 +30,7 @@ router.post(
 router.post(
   "/login",
   [
-    body("email").isEmail().withMessage("Invalid email"),
+    body("email").isEmail().withMessage("Invalid Email Entered"),
 
     body("password")
       .isLength({ min: 6 })
@@ -46,5 +43,4 @@ router.get("/profile", authMidddleware.authUser, getUserProfile);
 
 router.get("/logout", authMidddleware.authUser, logoutUser);
 
-// Export router as default for ES Modules
 export default router;

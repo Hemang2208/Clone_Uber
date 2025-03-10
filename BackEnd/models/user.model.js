@@ -1,6 +1,3 @@
-// Description: Mongoose model for user collection with fields for name, email, password, and socket ID.
-// It includes methods for generating JWT tokens, hashing passwords, and comparing passwords.
-
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -14,10 +11,12 @@ const userSchema = new mongoose.Schema({
     },
     middlename: {
       type: String,
+      required: false,
       minlength: [2, "Middle Name must be at least 2 characters long"],
     },
     lastname: {
       type: String,
+      required: false,
       minlength: [2, "Last Name must be at least 2 characters long"],
     },
   },
@@ -42,19 +41,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Generate JWT Token
 userSchema.methods.generateAuthToken = function () {
   return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
 };
 
-// Compare Password
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Hash Password
 userSchema.statics.hashPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);

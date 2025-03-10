@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 
 const UserProtectedWrapper = ({ children }) => {
     const token = localStorage.getItem("token");

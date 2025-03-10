@@ -6,7 +6,6 @@ import { validationResult } from "express-validator";
 export const registerCaptain = async (req, res) => {
   try {
     try {
-      // Validate request inputs
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -14,16 +13,13 @@ export const registerCaptain = async (req, res) => {
 
       const { fullname, email, password, vehical } = req.body;
 
-      // Check if captain already exists
       const isCaptainAlreadyExist = await captainModel.findOne({ email });
       if (isCaptainAlreadyExist) {
         return res.status(400).json({ message: "Captain already exists" });
       }
 
-      // Hash password using captainModel method
       const hashedPassword = await captainModel.hashPassword(password);
 
-      // Create captain using captainService
       const captain = await captainService.createCaptain({
         firstname: fullname.firstname,
         middlename: fullname.middlename,
@@ -37,7 +33,6 @@ export const registerCaptain = async (req, res) => {
         brand: vehical.vehicalBrand,
       });
 
-      // Generate authentication token
       const token = captain.generateAuthToken();
 
       res.status(201).json({
@@ -49,7 +44,9 @@ export const registerCaptain = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -63,19 +60,16 @@ export const loginCaptain = async (req, res) => {
     try {
       const { email, password } = req.body;
 
-      // Find captain using email
       const captain = await captainModel.findOne({ email });
       if (!captain) {
         return res.status(400).json({ message: "Invalid Email or Password" });
       }
 
-      // Compare password using captainModel method
       const isPasswordMatch = await captain.comparePassword(password);
       if (!isPasswordMatch) {
         return res.status(400).json({ message: "Invalid Email or Password" });
       }
 
-      // Generate authentication token
       const token = captain.generateAuthToken();
 
       res.cookie("token", token);
@@ -84,7 +78,9 @@ export const loginCaptain = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -96,7 +92,9 @@ export const getCaptainProfile = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 
@@ -113,6 +111,8 @@ export const logoutCaptain = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
