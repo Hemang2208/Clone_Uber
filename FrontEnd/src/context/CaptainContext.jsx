@@ -4,25 +4,26 @@ import PropTypes from "prop-types";
 const CaptainDataContext = createContext();
 
 const CaptainContext = ({ children }) => {
-  const [Captain, setCaptain] = useState({
-    Email: "",
-    Fullname: {
-      Firstname: "",
-      Middlename: "",
-      Lastname: "",
-    },
-    Vehicle: {
-      Color: "",
-      Type: "",
-      Capacity: "",
-      Number: "",
-      Model: "",
-      Brand: "",
-    },
-  });
+  const [captain, setCaptain] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
+  const [error, setError] = useState(null);
+
+  const updateCaptain = (captainData) => {
+    setCaptain(captainData);
+  };
+
+  const value = {
+    captain,
+    setCaptain,
+    isLoading,
+    setIsLoading,
+    error,
+    setError,
+    updateCaptain,
+  };
 
   return (
-    <CaptainDataContext.Provider value={{ Captain, setCaptain }}>
+    <CaptainDataContext.Provider value={value}>
       {children}
     </CaptainDataContext.Provider>
   );

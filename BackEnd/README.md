@@ -220,34 +220,36 @@ This endpoint allows for the registration of a new captain. It performs input va
 ```json
 {
   "fullname": {
-    "firstname": "string (min 3 characters, required)",
+    "firstname": "string (min 2 characters, required)",
     "middlename": "string (optional)",
     "lastname": "string (optional)"
   },
   "email": "string (valid email format, required)",
   "password": "string (min 6 characters, required)",
-  "vehicalColor": "string (required)",
-  "vehicalBrand": "string (required)",
-  "vehicalModel": "string (required)",
-  "plateNumber": "string (required)",
-  "capacity": "number (required)",
-  "vehicalType": "string (required)"
+  "vehicle": {
+    "vehicleColor": "string (required)",
+    "vehicleBrand": "string (required)",
+    "vehicleModel": "string (required)",
+    "vehicleNumber": "string (min 8 characters, required)",
+    "vehicleCapacity": "number (min 1, required)",
+    "vehicleType": "string (required, one of ['car', 'auto', 'bike'])"
+  }
 }
 ```
 
 ### Payload Fields
 
-- **fullname.firstname**: A string representing the captain's first name. Must be at least 3 characters long. (Required)
+- **fullname.firstname**: A string representing the captain's first name. Must be at least 2 characters long. (Required)
 - **fullname.middlename**: A string representing the captain's middle name. (Optional)
 - **fullname.lastname**: A string representing the captain's last name. (Optional)
 - **email**: A string representing the captain's email address. Must be a valid email format. (Required)
 - **password**: A string representing the captain's password. Must be at least 6 characters long. (Required)
-- **vehicalColor**: A string representing the color of the captain's vehicle. (Required)
-- **vehicalBrand**: A string representing the brand of the captain's vehicle. (Required)
-- **vehicalModel**: A string representing the model of the captain's vehicle. (Required)
-- **plateNumber**: A string representing the plate number of the captain's vehicle. (Required)
-- **capacity**: A number representing the capacity of the captain's vehicle. (Required)
-- **vehicalType**: A string representing the type of the captain's vehicle. (Required)
+- **vehicle.vehicleColor**: A string representing the color of the captain's vehicle. (Required)
+- **vehicle.vehicleBrand**: A string representing the brand of the captain's vehicle. (Required)
+- **vehicle.vehicleModel**: A string representing the model of the captain's vehicle. (Required)
+- **vehicle.vehicleNumber**: A string representing the plate number of the captain's vehicle. Must be at least 8 characters long. (Required)
+- **vehicle.vehicleCapacity**: A number representing the capacity of the captain's vehicle. Must be at least 1. (Required)
+- **vehicle.vehicleType**: A string representing the type of the captain's vehicle. Must be one of ['car', 'auto', 'bike']. (Required)
 
 ## Successful Response
 

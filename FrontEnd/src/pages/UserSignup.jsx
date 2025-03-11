@@ -80,7 +80,13 @@ const UserSignup = () => {
               required
               value={Firstname}
               onChange={(e) => {
-                setFirstname(e.target.value);
+                setFirstname(
+                  e.target.value
+                    .toUpperCase()
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .slice(0, 20)
+                );
               }}
               type="text"
             />
@@ -91,7 +97,13 @@ const UserSignup = () => {
                 required
                 value={Middlename}
                 onChange={(e) => {
-                  setMiddlename(e.target.value);
+                  setMiddlename(
+                    e.target.value
+                      .toUpperCase()
+                      .trim()
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -101,7 +113,13 @@ const UserSignup = () => {
                 required
                 value={Lastname}
                 onChange={(e) => {
-                  setLastname(e.target.value);
+                  setLastname(
+                    e.target.value
+                      .toUpperCase()
+                      .trim()
+                      .replace(/\s+/g, " ")
+                      .slice(0, 20)
+                  );
                 }}
                 type="text"
               />
@@ -115,7 +133,7 @@ const UserSignup = () => {
             required
             value={Email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(e.target.value.toLowerCase().trim().slice(0, 50));
             }}
             type="email"
           />
@@ -127,7 +145,7 @@ const UserSignup = () => {
             required
             value={Password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setPassword(e.target.value.trim());
             }}
             type="password"
           />

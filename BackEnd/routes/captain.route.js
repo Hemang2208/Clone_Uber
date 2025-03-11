@@ -6,7 +6,7 @@ import {
   getCaptainProfile,
   logoutCaptain,
 } from "../controllers/captain.controller.js";
-import authMidddleware from "../middlewares/auth.middleware.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -62,8 +62,8 @@ router.post(
   loginCaptain
 );
 
-router.get("/profile", authMidddleware.authCaptain, getCaptainProfile);
+router.get("/profile", authMiddleware.authCaptain, getCaptainProfile);
 
-router.get("/logout", authMidddleware.authCaptain, logoutCaptain);
+router.get("/logout", authMiddleware.authCaptain, logoutCaptain);
 
 export default router;

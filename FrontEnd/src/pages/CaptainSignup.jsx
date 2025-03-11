@@ -56,8 +56,6 @@ const CaptainSignup = () => {
         }
       );
 
-      console.log(response.status);
-
       if (response.status) {
         const data = response.data;
         setCaptain(data.captain);

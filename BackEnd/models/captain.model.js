@@ -12,12 +12,10 @@ const captainSchema = new mongoose.Schema({
     middlename: {
       type: String,
       required: false,
-      minlength: [2, "Middle Name must be at least 2 characters long"],
     },
     lastname: {
       type: String,
       required: false,
-      minlength: [2, "Last Name must be at least 2 characters long"],
     },
   },
   email: {
@@ -89,11 +87,11 @@ const captainSchema = new mongoose.Schema({
       minlength: [5, "Pincode must be at least 5 characters long"],
     },
     lan: {
-      type: [Number],
+      type: Number,
       required: false,
     },
     long: {
-      type: [Number],
+      type: Number,
       required: false,
     },
   },

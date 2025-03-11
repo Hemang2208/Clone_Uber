@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
   fullname: {
@@ -12,12 +12,10 @@ const userSchema = new mongoose.Schema({
     middlename: {
       type: String,
       required: false,
-      minlength: [2, "Middle Name must be at least 2 characters long"],
     },
     lastname: {
       type: String,
       required: false,
-      minlength: [2, "Last Name must be at least 2 characters long"],
     },
   },
   email: {

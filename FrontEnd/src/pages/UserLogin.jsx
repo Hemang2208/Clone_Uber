@@ -67,7 +67,7 @@ const UserLogin = () => {
             required
             value={Email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(e.target.value.toLowerCase().trim().slice(0, 50));
             }}
             type="email"
           />
