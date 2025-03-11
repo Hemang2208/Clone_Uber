@@ -4,7 +4,7 @@ const Start = () => {
   return (
     <div>
       <div className="bg-center bg-cover bg-[url(/Start_Image.jpg)] h-screen w-screen pt-8 flex flex-col justify-between bg-red-100">
-        <img className="w-1/4 ml-8" src="/Uber_Logo.png" alt="Uber_Logo" />
+        <img className="w-1/4 ml-8" src="/Uber_Logo.png" alt="Uber Logo" />
         <div className="bg-white pb-7 py-5 px-7">
           <h2 className="text-2xl font-bold">Get Started with Uber</h2>
           <Link

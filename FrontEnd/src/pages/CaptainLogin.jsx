@@ -1,18 +1,47 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CaptainDataContext } from "../context/CaptainContext";
 
 const CaptainLogin = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const [CaptainData, setCaptainData] = useState({});
 
-  const submitHandle = (e) => {
+  const navigate = useNavigate();
+  const { setCaptain } = useContext(CaptainDataContext);
+
+  const submitHandle = async (e) => {
     e.preventDefault();
-    setCaptainData({
-      Email: Email,
-      Password: Password,
-    });
-    CaptainData;
+
+    const captainData = {
+      email: Email,
+      password: Password,
+    };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/captains/login`,
+        captainData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status) {
+        const data = response.data;
+        setCaptain(data.captain);
+        localStorage.setItem("token", data.token);
+        navigate("/captain-home");
+      }
+    } catch (error) {
+      console.error(
+        "Error During SignIn:",
+        error.response ? error.response.data : error
+      );
+    }
 
     setEmail("");
     setPassword("");
@@ -24,7 +53,7 @@ const CaptainLogin = () => {
         <img
           className="w-1/4 h-auto fixed"
           src="/Uber_Logo.png"
-          alt="Uber_Logo"
+          alt="Uber Logo"
         />
         <h2 className="mt-16 mb-7 underline text-center font-bold text-xl">
           Captain Login Page
@@ -42,7 +71,13 @@ const CaptainLogin = () => {
             required
             value={Email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setEmail(
+                e.target.value
+                  .toLowerCase()
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .slice(0, 50)
+              );
             }}
             type="email"
           />
@@ -53,7 +88,7 @@ const CaptainLogin = () => {
             required
             value={Password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setPassword(e.target.value.trim());
             }}
             type="password"
           />

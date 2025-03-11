@@ -1,5 +1,5 @@
-import { validationResult } from "express-validator";
 import userModel from "../models/user.model.js";
+import { validationResult } from "express-validator";
 import { userService } from "../services/user.service.js";
 import BlacklistTokenModel from "../models/blacklistToken.model.js";
 
@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
         password: hashPassword,
       });
 
-      const token = user.generateAuthToken();
+      const token = await user.generateAuthToken();
 
       res.status(201).json({
         message: "User Registered Successfully",

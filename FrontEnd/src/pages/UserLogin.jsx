@@ -1,8 +1,8 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserDataContext } from "../context/UserContext.jsx";
-import axios from "axios";
 
 const UserLogin = () => {
   const [Email, setEmail] = useState("");
@@ -36,7 +36,10 @@ const UserLogin = () => {
         navigate("/home");
       }
     } catch (error) {
-      console.error("Error during signin:", error);
+      console.error(
+        "Error During SignIn:",
+        error.response ? error.response.data : error
+      );
     }
 
     setEmail("");
@@ -49,7 +52,7 @@ const UserLogin = () => {
         <img
           className="w-1/4 h-auto fixed"
           src="/Uber_Logo.png"
-          alt="Uber_Logo"
+          alt="Uber Logo"
         />
         <h2 className="mt-16 mb-7 underline text-center font-bold text-xl">
           User Login Page
@@ -67,7 +70,13 @@ const UserLogin = () => {
             required
             value={Email}
             onChange={(e) => {
-              setEmail(e.target.value.toLowerCase().trim().slice(0, 50));
+              setEmail(
+                e.target.value
+                  .toLowerCase()
+                  .trim()
+                  .replace(/\s+/g, " ")
+                  .slice(0, 50)
+              );
             }}
             type="email"
           />
@@ -78,7 +87,7 @@ const UserLogin = () => {
             required
             value={Password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setPassword(e.target.value.trim());
             }}
             type="password"
           />

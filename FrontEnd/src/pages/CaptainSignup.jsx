@@ -66,23 +66,23 @@ const CaptainSignup = () => {
       console.error("Error During Signup:", error);
     }
 
-    // setEmail("");
-    // setPassword("");
-    // setFirstname("");
-    // setMiddlename("");
-    // setLastname("");
-    // setVehicleCapacity("");
-    // setVehicleColor("");
-    // setVehiclePlate("");
-    // setVehicleType("");
-    // setVehicleBrand("");
-    // setVehicleModel("");
+    setEmail("");
+    setPassword("");
+    setFirstname("");
+    setMiddlename("");
+    setLastname("");
+    setVehicleCapacity("");
+    setVehicleColor("");
+    setVehiclePlate("");
+    setVehicleType("");
+    setVehicleBrand("");
+    setVehicleModel("");
   };
 
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img className="w-1/4 h-auto" src="/Uber_Logo.png" alt="Uber_Logo" />
+        <img className="w-1/4 h-auto" src="/Uber_Logo.png" alt="Uber Logo" />
         <h2 className="mt-5 mb-4 underline text-center font-bold text-xl">
           Captain Signup Page
         </h2>

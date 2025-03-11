@@ -1,7 +1,7 @@
-import BlacklistToken from "../models/blacklistToken.model.js";
-import captainModel from "../models/captain.model.js";
-import { captainService } from "../services/captain.service.js";
 import { validationResult } from "express-validator";
+import captainModel from "../models/captain.model.js";
+import BlacklistToken from "../models/blacklistToken.model.js";
+import { captainService } from "../services/captain.service.js";
 
 export const registerCaptain = async (req, res) => {
   try {
@@ -14,7 +14,9 @@ export const registerCaptain = async (req, res) => {
 
     const isCaptainAlreadyExist = await captainModel.findOne({ email });
     if (isCaptainAlreadyExist) {
-      return res.status(400).json({ message: "Captain Already Exists, Kindly Login." });
+      return res
+        .status(400)
+        .json({ message: "Captain Already Exists, Kindly Login." });
     }
 
     const hashedPassword = await captainModel.hashPassword(password);
@@ -33,7 +35,7 @@ export const registerCaptain = async (req, res) => {
       vehicleModel: vehicle.vehicleModel,
     });
 
-    const token = captain.generateAuthToken();
+    const token = await captain.generateAuthToken();
 
     res.status(201).json({
       message: "Captain registered successfully",
@@ -47,29 +49,35 @@ export const registerCaptain = async (req, res) => {
 
 export const loginCaptain = async (req, res) => {
   try {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-      return res.status(400).json({ errors: error.array() });
+    try {
+      const error = validationResult(req);
+      if (!error.isEmpty()) {
+        return res.status(400).json({ errors: error.array() });
+      }
+
+      const { email, password } = req.body;
+
+      const captain = await captainModel.findOne({ email }).select("+password");
+      if (!captain) {
+        return res.status(401).json({ message: "Invalid Email or Password" });
+      }
+
+      const isMatch = await captain.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid Email or Password" });
+      }
+
+      const token = captain.generateAuthToken();
+
+      res.cookie("token", token);
+      res.status(200).json({ token, captain });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-
-    const { email, password } = req.body;
-
-    const captain = await captainModel.findOne({ email });
-    if (!captain) {
-      return res.status(400).json({ message: "Invalid Email or Password" });
-    }
-
-    const isPasswordMatch = await captain.comparePassword(password);
-    if (!isPasswordMatch) {
-      return res.status(400).json({ message: "Invalid Email or Password" });
-    }
-
-    const token = captain.generateAuthToken();
-
-    res.cookie("token", token);
-    res.status(200).json({ token, captain });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ error: "An Unexpected Error Occurred, While Running" });
   }
 };
 

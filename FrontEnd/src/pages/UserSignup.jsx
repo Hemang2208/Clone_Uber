@@ -61,7 +61,7 @@ const UserSignup = () => {
         <img
           className="w-1/4 h-auto fixed"
           src="/Uber_Logo.png"
-          alt="Uber_Logo"
+          alt="Uber Logo"
         />
         <h2 className="mt-16 mb-4 underline text-center font-bold text-xl">
           User Signup Page
